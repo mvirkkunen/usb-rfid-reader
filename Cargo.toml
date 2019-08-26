@@ -1,0 +1,31 @@
+[package]
+name = "usb-rfid-reader"
+version = "0.1.0"
+authors = ["Matti Virkkunen <mvirkkunen@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+cortex-m = "0.6.0"
+cortex-m-rt = "0.6.8"
+#cortex-m-rtfm = "0.5.0-alpha.1"
+cortex-m-semihosting = "0.3.3"
+embedded-hal = "0.2.3"
+heapless = "0.5.0"
+#mfrc522 = "0.2.0"
+nb = "0.1.2"
+panic-semihosting = "0.5.2"
+stm32-usbd = { version = "0.3.1", features = ["stm32f103xx"] }
+stm32f1xx-hal = { version = "0.3.0", features = ["stm32f103", "rt"] }
+usb-device = { version = "0.2.2" }
+usbd-serial = "0.1.0"
+
+# git dependency due to incompatibility with embedded-hal digital::v2
+[dependencies.mfrc522]
+git = "https://github.com/mvirkkunen/mfrc522"
+rev = "f4cfa8fc0eb02b27e4a74841ecea5a44318550be"
+
+# git dependency for pre-release version
+[dependencies.cortex-m-rtfm]
+git = "https://github.com/japaric/cortex-m-rtfm"
+version = "0.5.0-alpha.1"
+features = ["timer-queue"]
