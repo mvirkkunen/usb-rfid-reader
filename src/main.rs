@@ -144,7 +144,7 @@ const APP: () = {
                 padded[..uid.len()].copy_from_slice(uid);
 
                 if !(padded == *PREV_UID && *PREV_COUNT > 0) {
-                    let mut hex_uid = String::<U11>::new();
+                    let mut hex_uid = String::<U21>::new();
                     for &b in uid {
                         write!(hex_uid, "{:02x}", b).ok();
                     }

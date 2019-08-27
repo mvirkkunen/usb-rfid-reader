@@ -22,8 +22,6 @@ pub struct Keyboard<'a, B: UsbBus> {
     release: bool,
 }
 
-use crate::println;
-
 impl<B: UsbBus> Keyboard<'_, B> {
     pub fn new<'a>(alloc: &'a UsbBusAllocator<B>) -> Keyboard<'a, B> {
         Keyboard {
@@ -35,8 +33,6 @@ impl<B: UsbBus> Keyboard<'_, B> {
     }
 
     pub fn type_text(&mut self, text: &str) -> Result<(), Error> {
-        println!("type_text");
-
         for ch in text.bytes() {
             let keycode = KEYCODES.iter().find(|c| c.0 == ch).ok_or(Error::UnknownCharacter)?;
 
@@ -50,8 +46,6 @@ impl<B: UsbBus> Keyboard<'_, B> {
 
     fn write_report(&mut self) -> Result<(), Error> {
         let mut report = [0u8; 8];
-
-        println!("write");
 
         if self.release {
             self.release = false;
@@ -206,16 +200,16 @@ const KEYCODES: &[(u8, u8, u8)] = &[
     (b'X', 0x02, 0x1b),
     (b'Y', 0x02, 0x1c),
     (b'Z', 0x02, 0x1d),
-    (b'0', 0x00, 0x1e),
-    (b'1', 0x00, 0x1f),
-    (b'2', 0x00, 0x20),
-    (b'3', 0x00, 0x21),
-    (b'4', 0x00, 0x22),
-    (b'5', 0x00, 0x23),
-    (b'6', 0x00, 0x24),
-    (b'7', 0x00, 0x25),
-    (b'8', 0x00, 0x26),
-    (b'9', 0x00, 0x27),
+    (b'1', 0x00, 0x1e),
+    (b'2', 0x00, 0x1f),
+    (b'3', 0x00, 0x20),
+    (b'4', 0x00, 0x21),
+    (b'5', 0x00, 0x22),
+    (b'6', 0x00, 0x23),
+    (b'7', 0x00, 0x24),
+    (b'8', 0x00, 0x25),
+    (b'9', 0x00, 0x26),
+    (b'0', 0x00, 0x27),
     (b'\n', 0x00, 0x28),
     (b'\x1b', 0x00, 0x29),
     (b'\x08', 0x00, 0x2a),
